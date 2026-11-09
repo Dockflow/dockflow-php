@@ -52,18 +52,18 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = Dockflow\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new Dockflow\Sdk\Api\V3DocumentApi(
+$apiInstance = new Dockflow\Sdk\Api\DocumentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
+$reference = 'reference_example'; // string
 
 try {
-    $result = $apiInstance->listDocumentTypes();
-    print_r($result);
+    $apiInstance->deleteDocument($reference);
 } catch (Exception $e) {
-    echo 'Exception when calling V3DocumentApi->listDocumentTypes: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DocumentsApi->deleteDocument: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
@@ -74,19 +74,21 @@ All URIs are relative to *https://api.dockflow.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*V3DocumentApi* | [**listDocumentTypes**](docs/Api/V3DocumentApi.md#listdocumenttypes) | **GET** /v3/downstream/documents/types | List document types
-*V3DocumentApi* | [**v3DocumentDelete**](docs/Api/V3DocumentApi.md#v3documentdelete) | **DELETE** /v3/downstream/documents/{reference} | Delete a document
-*V3DocumentApi* | [**v3DocumentGet**](docs/Api/V3DocumentApi.md#v3documentget) | **GET** /v3/downstream/documents/{reference} | List the documents of a tradeflow
-*V3DocumentApi* | [**v3DocumentPatch**](docs/Api/V3DocumentApi.md#v3documentpatch) | **PATCH** /v3/downstream/documents/{reference} | Update a document
-*V3DocumentApi* | [**v3DocumentPost**](docs/Api/V3DocumentApi.md#v3documentpost) | **POST** /v3/downstream/documents | Upload a document to a tradeflow
-*V3DownstreamApi* | [**v3DownstreamDelete**](docs/Api/V3DownstreamApi.md#v3downstreamdelete) | **DELETE** /v3/downstream/tradeflows/{tradeflow_reference} | Delete a tradeflow
-*V3DownstreamApi* | [**v3DownstreamPost**](docs/Api/V3DownstreamApi.md#v3downstreampost) | **POST** /v3/downstream/tradeflows | Upsert tradeflows
-*V3UpstreamApi* | [**v3UpstreamGet**](docs/Api/V3UpstreamApi.md#v3upstreamget) | **GET** /v3/upstream | Poll upstream events
+*DocumentsApi* | [**deleteDocument**](docs/Api/DocumentsApi.md#deletedocument) | **DELETE** /v3/downstream/documents/{reference} | Delete a document
+*DocumentsApi* | [**getDocument**](docs/Api/DocumentsApi.md#getdocument) | **GET** /v3/downstream/documents/{reference} | List the documents of a tradeflow
+*DocumentsApi* | [**listDocumentTypes**](docs/Api/DocumentsApi.md#listdocumenttypes) | **GET** /v3/downstream/documents/types | List document types
+*DocumentsApi* | [**updateDocument**](docs/Api/DocumentsApi.md#updatedocument) | **PATCH** /v3/downstream/documents/{reference} | Update a document
+*DocumentsApi* | [**uploadDocument**](docs/Api/DocumentsApi.md#uploaddocument) | **POST** /v3/downstream/documents | Upload a document to a tradeflow
+*TradeflowsApi* | [**createTradeflows**](docs/Api/TradeflowsApi.md#createtradeflows) | **POST** /v3/downstream/tradeflows | Upsert tradeflows
+*TradeflowsApi* | [**deleteTradeflow**](docs/Api/TradeflowsApi.md#deletetradeflow) | **DELETE** /v3/downstream/tradeflows/{tradeflow_reference} | Delete a tradeflow
+*UpstreamApi* | [**getUpstream**](docs/Api/UpstreamApi.md#getupstream) | **GET** /v3/upstream | Poll upstream events
 *WidgetApi* | [**searchWidget**](docs/Api/WidgetApi.md#searchwidget) | **GET** /v3/widget/search | Search a shipment for the embeddable tracking widget
 
 ## Models
 
 - [ContainerReference](docs/Model/ContainerReference.md)
+- [CreateTradeflows202Response](docs/Model/CreateTradeflows202Response.md)
+- [CreateTradeflows202ResponseTradeflowsInner](docs/Model/CreateTradeflows202ResponseTradeflowsInner.md)
 - [DocumentUpdate](docs/Model/DocumentUpdate.md)
 - [DocumentUpload](docs/Model/DocumentUpload.md)
 - [DownstreamTradeflow](docs/Model/DownstreamTradeflow.md)
@@ -97,21 +99,19 @@ Class | Method | HTTP request | Description
 - [DownstreamTradeflowMockTracking](docs/Model/DownstreamTradeflowMockTracking.md)
 - [DownstreamTradeflowPartnersInner](docs/Model/DownstreamTradeflowPartnersInner.md)
 - [DownstreamTradeflowReferences](docs/Model/DownstreamTradeflowReferences.md)
+- [GetDocument200Response](docs/Model/GetDocument200Response.md)
+- [GetDocument200ResponseDataInner](docs/Model/GetDocument200ResponseDataInner.md)
+- [GetDocument200ResponseDataInnerDocumentType](docs/Model/GetDocument200ResponseDataInnerDocumentType.md)
+- [GetUpstream200Response](docs/Model/GetUpstream200Response.md)
+- [GetUpstream400Response](docs/Model/GetUpstream400Response.md)
 - [InlineObject](docs/Model/InlineObject.md)
 - [ListDocumentTypes200ResponseInner](docs/Model/ListDocumentTypes200ResponseInner.md)
+- [UploadDocument202Response](docs/Model/UploadDocument202Response.md)
+- [UploadDocument400Response](docs/Model/UploadDocument400Response.md)
 - [UpstreamRecord](docs/Model/UpstreamRecord.md)
 - [UpstreamRecordAdditionalReferences](docs/Model/UpstreamRecordAdditionalReferences.md)
 - [UpstreamRecordDataQuality](docs/Model/UpstreamRecordDataQuality.md)
 - [UpstreamRecordMetadata](docs/Model/UpstreamRecordMetadata.md)
-- [V3DocumentGet200Response](docs/Model/V3DocumentGet200Response.md)
-- [V3DocumentGet200ResponseDataInner](docs/Model/V3DocumentGet200ResponseDataInner.md)
-- [V3DocumentGet200ResponseDataInnerDocumentType](docs/Model/V3DocumentGet200ResponseDataInnerDocumentType.md)
-- [V3DocumentPost202Response](docs/Model/V3DocumentPost202Response.md)
-- [V3DocumentPost400Response](docs/Model/V3DocumentPost400Response.md)
-- [V3DownstreamPost202Response](docs/Model/V3DownstreamPost202Response.md)
-- [V3DownstreamPost202ResponseTradeflowsInner](docs/Model/V3DownstreamPost202ResponseTradeflowsInner.md)
-- [V3UpstreamGet200Response](docs/Model/V3UpstreamGet200Response.md)
-- [V3UpstreamGet400Response](docs/Model/V3UpstreamGet400Response.md)
 - [WidgetContainer](docs/Model/WidgetContainer.md)
 - [WidgetCountry](docs/Model/WidgetCountry.md)
 - [WidgetLeg](docs/Model/WidgetLeg.md)
@@ -147,6 +147,6 @@ vendor/bin/phpunit
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: `3.0.0`
-    - Package version: `0.2.0`
+    - Package version: `0.3.0`
     - Generator version: `7.27.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`
