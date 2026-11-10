@@ -1,6 +1,6 @@
 {
     "name": "dockflow/dockflow-sdk",
-    "version": "0.3.1",
+    "version": "1.0.0",
     "description": "Client for the Dockflow API v3: upstream events, tradeflows, documents and the widget.",
     "keywords": [
         "openapitools",
