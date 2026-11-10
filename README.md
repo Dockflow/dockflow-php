@@ -1,152 +1,40 @@
-# OpenAPIClient-php
+# Dockflow API SDK for PHP
 
-Client for the Dockflow API v3: upstream events, tradeflows, documents and the widget.
+The official PHP client for the [Dockflow](https://dockflow.com) API v3: container and shipment tracking events,
+tradeflows, documents and the tracking widget.
 
+## Install
 
-## Installation & Usage
-
-### Requirements
-
-PHP 8.1 and later.
-
-### Composer
-
-To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
-
-```json
-{
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/Dockflow/dockflow-sdks.git"
-    }
-  ],
-  "require": {
-    "Dockflow/dockflow-sdks": "*@dev"
-  }
-}
+```sh
+composer require dockflow/dockflow-sdk
 ```
 
-Then run `composer install`
+## Quickstart
 
-### Manual Installation
-
-Download the files and include `autoload.php`:
+Create an API key in the Dockflow console. Production is `https://api.dockflow.com`; test against the UAT sandbox at
+`https://uat.dockflow.com` with a UAT key.
 
 ```php
-<?php
-require_once('/path/to/OpenAPIClient-php/vendor/autoload.php');
+$config = Dockflow\Sdk\Configuration::getDefaultConfiguration()
+    ->setHost('https://api.dockflow.com')
+    ->setAccessToken(getenv('DOCKFLOW_KEY'));
+$upstream = new Dockflow\Sdk\Api\UpstreamApi(new GuzzleHttp\Client(), $config);
+$page = $upstream->getUpstream(tradeflow: 'PO4564268');
 ```
 
-## Getting Started
+The four API classes are `UpstreamApi`, `TradeflowsApi`, `DocumentsApi` and `WidgetApi`.
 
-Please follow the [installation procedure](#installation--usage) and then run the following:
+## Documentation
 
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
+- Guides and examples: https://docs.dockflow.com/api/sdk/
+- OpenAPI 3.1 spec: https://api.dockflow.com/v3/openapi.json
+- All five SDKs (TypeScript, Python, C#, Java, PHP): https://github.com/Dockflow/dockflow-sdks
 
+## Versioning
 
+Released automatically whenever the API changes. Versions follow semver: a breaking API change bumps the major
+version, everything else the minor or patch.
 
-// Configure Bearer authorization: ApiKey
-$config = Dockflow\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+## License
 
-
-$apiInstance = new Dockflow\Sdk\Api\DocumentsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$reference = 'reference_example'; // string
-
-try {
-    $apiInstance->deleteDocument($reference);
-} catch (Exception $e) {
-    echo 'Exception when calling DocumentsApi->deleteDocument: ', $e->getMessage(), PHP_EOL;
-}
-
-```
-
-## API Endpoints
-
-All URIs are relative to *https://api.dockflow.com*
-
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*DocumentsApi* | [**deleteDocument**](docs/Api/DocumentsApi.md#deletedocument) | **DELETE** /v3/downstream/documents/{reference} | Delete a document
-*DocumentsApi* | [**getDocument**](docs/Api/DocumentsApi.md#getdocument) | **GET** /v3/downstream/documents/{reference} | List the documents of a tradeflow
-*DocumentsApi* | [**listDocumentTypes**](docs/Api/DocumentsApi.md#listdocumenttypes) | **GET** /v3/downstream/documents/types | List document types
-*DocumentsApi* | [**updateDocument**](docs/Api/DocumentsApi.md#updatedocument) | **PATCH** /v3/downstream/documents/{reference} | Update a document
-*DocumentsApi* | [**uploadDocument**](docs/Api/DocumentsApi.md#uploaddocument) | **POST** /v3/downstream/documents | Upload a document to a tradeflow
-*TradeflowsApi* | [**createTradeflows**](docs/Api/TradeflowsApi.md#createtradeflows) | **POST** /v3/downstream/tradeflows | Upsert tradeflows
-*TradeflowsApi* | [**deleteTradeflow**](docs/Api/TradeflowsApi.md#deletetradeflow) | **DELETE** /v3/downstream/tradeflows/{tradeflow_reference} | Delete a tradeflow
-*UpstreamApi* | [**getUpstream**](docs/Api/UpstreamApi.md#getupstream) | **GET** /v3/upstream | Poll upstream events
-*WidgetApi* | [**searchWidget**](docs/Api/WidgetApi.md#searchwidget) | **GET** /v3/widget/search | Search a shipment for the embeddable tracking widget
-
-## Models
-
-- [ContainerReference](docs/Model/ContainerReference.md)
-- [CreateTradeflows202Response](docs/Model/CreateTradeflows202Response.md)
-- [CreateTradeflows202ResponseTradeflowsInner](docs/Model/CreateTradeflows202ResponseTradeflowsInner.md)
-- [DocumentUpdate](docs/Model/DocumentUpdate.md)
-- [DocumentUpload](docs/Model/DocumentUpload.md)
-- [DownstreamTradeflow](docs/Model/DownstreamTradeflow.md)
-- [DownstreamTradeflowBillOfLadingReference](docs/Model/DownstreamTradeflowBillOfLadingReference.md)
-- [DownstreamTradeflowBookingReference](docs/Model/DownstreamTradeflowBookingReference.md)
-- [DownstreamTradeflowEventsInner](docs/Model/DownstreamTradeflowEventsInner.md)
-- [DownstreamTradeflowFreeTimeOverridesInner](docs/Model/DownstreamTradeflowFreeTimeOverridesInner.md)
-- [DownstreamTradeflowMockTracking](docs/Model/DownstreamTradeflowMockTracking.md)
-- [DownstreamTradeflowPartnersInner](docs/Model/DownstreamTradeflowPartnersInner.md)
-- [DownstreamTradeflowReferences](docs/Model/DownstreamTradeflowReferences.md)
-- [GetDocument200Response](docs/Model/GetDocument200Response.md)
-- [GetDocument200ResponseDataInner](docs/Model/GetDocument200ResponseDataInner.md)
-- [GetDocument200ResponseDataInnerDocumentType](docs/Model/GetDocument200ResponseDataInnerDocumentType.md)
-- [GetUpstream200Response](docs/Model/GetUpstream200Response.md)
-- [GetUpstream400Response](docs/Model/GetUpstream400Response.md)
-- [InlineObject](docs/Model/InlineObject.md)
-- [ListDocumentTypes200ResponseInner](docs/Model/ListDocumentTypes200ResponseInner.md)
-- [UploadDocument202Response](docs/Model/UploadDocument202Response.md)
-- [UploadDocument400Response](docs/Model/UploadDocument400Response.md)
-- [UpstreamRecord](docs/Model/UpstreamRecord.md)
-- [UpstreamRecordAdditionalReferences](docs/Model/UpstreamRecordAdditionalReferences.md)
-- [UpstreamRecordDataQuality](docs/Model/UpstreamRecordDataQuality.md)
-- [UpstreamRecordMetadata](docs/Model/UpstreamRecordMetadata.md)
-- [WidgetContainer](docs/Model/WidgetContainer.md)
-- [WidgetCountry](docs/Model/WidgetCountry.md)
-- [WidgetLeg](docs/Model/WidgetLeg.md)
-- [WidgetLocation](docs/Model/WidgetLocation.md)
-- [WidgetMilestone](docs/Model/WidgetMilestone.md)
-- [WidgetPoint](docs/Model/WidgetPoint.md)
-- [WidgetSearchResult](docs/Model/WidgetSearchResult.md)
-- [WidgetTrack](docs/Model/WidgetTrack.md)
-- [WidgetTrackReading](docs/Model/WidgetTrackReading.md)
-
-## Authorization
-
-Authentication schemes defined for the API:
-### ApiKey
-
-- **Type**: Bearer authentication
-
-## Tests
-
-To run the tests, use:
-
-```bash
-composer install
-vendor/bin/phpunit
-```
-
-## Author
-
-
-
-## About this package
-
-This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
-
-- API version: `3.0.0`
-    - Package version: `1.0.0`
-    - Generator version: `7.27.0`
-- Build package: `org.openapitools.codegen.languages.PhpClientCodegen`
+MIT
